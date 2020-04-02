@@ -1,6 +1,7 @@
 package br.edu.sc.senac.demo.demoproject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -18,68 +19,72 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/client")
 
 public class ClientService {
-	public static ArrayList<ClientDTO> list = new ArrayList<ClientDTO>();
 
-	@GetMapping("/list")
+	private final ClientController clientController;
 
-	public List<ClientDTO> list() {
-		;
-		return list;
+	ClientService(final ClientController clientController) {
+		this.clientController = clientController;
 	}
+	// private List<ClientDTO> clients = new ArrayList<>();
 
 	@PostMapping("/add-default")
-	public List<ClientDTO> addDefault() {
+	public void addDefault() {
 
-		ClientDTO client1 = new ClientDTO("Marcelo", "21/10/2003", "Marcelo@gmail.com");
-		list.add(0, client1);
+		ClientDTO client = new ClientDTO("Gabriel", "Gerente", "02/09/2003");
+		clients.all(client);
 
-		ClientDTO client2 = new ClientDTO("Carlos", "14/11/2001", "Carlos@gmail.com");
-		list.add(1, client2);
+		client = new ClientDTO("Macalister", "Colaborador", "21/10/2003");
+		clients.add(client);
 
-		ClientDTO client3 = new ClientDTO("José", "02/09/2003", "Jose@gmail.com");
-		list.add(2, client3);
-
-		return list;
-
+		client = new ClientDTO("Marcelo", "Colaborador", "21/10/1970");
+		clients.add(client);
 	}
 
-	@PostMapping("/register")
-	public int registerClient(@RequestBody final ClientDTO client) {
-		list().add(client);
-		return list().size();
-
+	@GetMapping("/list")
+	public List<ClientDTO> list() {
+		return this.clientController.getAllClients();
 	}
 
-	@GetMapping("{id}/details")
-	public ResponseEntity<ClientDTO> getClient(@PathVariable final int id) {
+}
 
-		if (id >= list().size() || id < 0) {
+	public List<ClientDTO> list() {
+		return this.clients;
+	}
+	
+	//Atividade
+	@GetMapping("/{id}/details")
+	public ResponseEntity<ClientDTO> getClient(@PathVariable int id) {
+		if (id >= this.clientController.getAllClients().size() || id < 0) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-
-		ClientDTO client = list().get(id);
+		ClientDTO client = this.clientController.getClient(id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
-
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<ClientDTO> removeClient(@PathVariable final int id) {
-		if (id >= list.size() || id < 0) {
+
+	public ResponseEntity<ClientDTO> removeClient(@PathVariable Long id) {
+		if (id >= clients.size() || id < 0) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		ClientDTO client = list.remove(id);
+		int index = id.intValue();
+		ClientDTO client = clients.remove(index);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
-	
+
+	@PostMapping("/addpayload")
+	public Long addClient(@RequestBody ClientDTO client) {
+		return this.clientController.insertClient(client);
+	}
+
 	@PutMapping("/{id}")
-	public ResponseEntity<ClientDTO> uptadeClient(@PathVariable final int id, @RequestBody ClientDTO uptadeClient) {
-		if (id >= list.size() || id < 0) {
+	public ResponseEntity<ClientDTO> uptadeClient(@PathVariable Long id, @RequestBody ClientDTO updatedClient) {
+		if (id >= clients.size() || id < 0) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		ClientDTO oldClient = list.remove(id);
-		list().add(id, uptadeClient);
+		int index = id.intValue();
+		ClientDTO oldClient = clients.remove(index);
+		clients.add(index, updatedClient);
 		return new ResponseEntity<>(oldClient, HttpStatus.OK);
 	}
-	
-
 }
