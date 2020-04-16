@@ -21,11 +21,15 @@ public class ClientController {
 	}
 	
 	ClientDTO getClient(int id) {
-		if (id >= this.clients.size() || id < 0) {
+		if (isExistClient(id)) {
 			return null;
 		}
 		ClientDTO client = clients.get(id);
 		return client;
+	}
+
+	private boolean isExistClient(int id) {
+		return id >= this.clients.size() || id < 0;
 	}
 	
 	ClientDTO removeClient(int id) {

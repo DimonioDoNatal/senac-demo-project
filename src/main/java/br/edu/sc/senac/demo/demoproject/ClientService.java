@@ -23,7 +23,6 @@ public class ClientService {
 	ClientService(final ClientController clientController) {
 		this.clientController = clientController;
 	}
-	// private List<ClientDTO> clients = new ArrayList<>();
 
 	@GetMapping("/list")
 	public List<ClientDTO> list() {
@@ -32,10 +31,10 @@ public class ClientService {
 	
 	@GetMapping("/{id}/details")
 	public ResponseEntity<ClientDTO> getClient(@PathVariable int id) {
-		if (this.clientController.getClient(id) == null) {
+		ClientDTO client = this.clientController.getClient(id);
+		if (client == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		ClientDTO client = this.clientController.getClient(id);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 
@@ -43,11 +42,11 @@ public class ClientService {
 
 	public ResponseEntity<ClientDTO> removeClient(@PathVariable Long id) {
 		int index = id.intValue();
-		if (this.clientController.removeClient(index) == null) {
+		ClientDTO client = this.clientController.removeClient(index);
+		if (client.equals(ClientDTO.NULL_VALUE)) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		ClientDTO client = this.clientController.removeClient(index);
 		return new ResponseEntity<>(client, HttpStatus.OK);
 	}
 
@@ -58,10 +57,11 @@ public class ClientService {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<ClientDTO> uptadeClient(@PathVariable int id, @RequestBody ClientDTO updatedClient) {
-		if (this.clientController.uptadeClient(id, updatedClient) == null) {
+		ClientDTO oldClient = this.clientController.uptadeClient(id, updatedClient);
+		if (oldClient == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		ClientDTO oldClient = this.clientController.uptadeClient(id, updatedClient);
+		
 		return new ResponseEntity<>(oldClient, HttpStatus.OK);
 	}
 }
