@@ -10,6 +10,8 @@ import javax.persistence.Id;
 @Entity(name = "Client")
 final class ClientEntity implements Serializable {
 	
+	private static final long serialVersionUID = 4391164751402917205L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long clientId;
