@@ -1,5 +1,6 @@
 package br.edu.sc.senac.demo.demoproject;
 
+import java.awt.BufferCapabilities.FlipContents;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/product")
 public final class ProductService {
+	
 
 	private static final ProductDTO[] DEFAULT_PRODUCTS = new ProductDTO[] {
 			new ProductDTO(Long.valueOf(0), "Phone XL", "A large phone with one of the best screens", Double.valueOf(799)),
@@ -48,7 +50,7 @@ public final class ProductService {
 	public ResponseEntity<ProductDTO> removeProduct(@PathVariable final Long id) {
 		final ProductDTO removedProduct = this.productController.removeProduct(id);
 		if (removedProduct.equals(ProductDTO.NULL_VALUE)) {
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(removedProduct, HttpStatus.OK);
 	}
