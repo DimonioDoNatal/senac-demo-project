@@ -1,0 +1,11 @@
+<h2>Customers</h2>
+<div *ngFor="let customer of customers">
+    <h3>
+        <a [title]="customer.name + ' details'">
+            {{ customer.name }} 
+        </a>
+    </h3>
+    <p>
+        E-mail: {{ customer.email }}
+    </p>
+</div>
