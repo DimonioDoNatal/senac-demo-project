@@ -10,6 +10,8 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductsService } from './product-list/products.service';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { MeuPrimeiroComponent } from './meu-primeiro/meu-primeiro.componet';
+import { MeuSegundoComponentComponent } from './meu-segundo-component/meu-segundo-component.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 
 @NgModule({
@@ -20,6 +22,7 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
+      { path: 'customers', component: CustomerListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
     ])
   ],
@@ -27,7 +30,9 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
     AppComponent,
     TopBarComponent,
     ProductListComponent,
+    MeuPrimeiroComponent,
     ProductDetailsComponent,
+    MeuSegundoComponentComponent,
     CustomerListComponent
   ],
   bootstrap: [ AppComponent ],
