@@ -9,17 +9,17 @@ export class CustomerListComponent implements OnInit {
 
   customers = [
 {
-  nome: "Ricardo",
+  nome: "Tony",
   data: "14/11/01",
-  email: "ricardo@email.com"
+  email: "tony@gmail.com"
 },
 {
-  nome: "Gabriel",
+  nome: "Prussian",
   data: "02/09/03",
-  email: "gabriel@email.com"
+  email: "Prussian@gmail.com"
 },
 {
-  nome: "Lucas",
+  nome: "Leipzig",
   data: "02/05/03",
   email: null
 }
