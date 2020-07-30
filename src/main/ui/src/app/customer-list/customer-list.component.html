@@ -34,26 +34,26 @@
     <h5>{{customer.data}}</h5>
 </div -->
 
-<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm, customerName.value, customerData.value, customerEmail.value)" class="formulario" >
+<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm)" class="formulario" >
 
      <h2> Customers Guest Card </h2>
 
      <div>
          <label for="customerName">Name:</label>
-        <input #customerName="ngModel" ngModel name="customerName" required placeholder="Customer Name" />
+        <input #customerName="ngModel" [(ngModel)]="newCustomer.name" name="customerName" required placeholder="Customer Name" />
 
      </div>
      
      <div class="field">
         <label for="customerData">Birthday:</label>
-        <input #customerData="ngModel" ngModel name="customerData" required placeholder="Customer Birthday"/>
+        <input #customerData="ngModel" [(ngModel)]="newCustomer.data" name="customerData" required placeholder="Customer Birthday"/>
 
      </div>
 
      <div class="field">
          <label for="customerEmail">Email:</label>
-        <input #customerEmail="ngModel" ngModel name="customerEmail" required placeholder="exemple@gmail.com" />
-        
+        <input #customerEmail="ngModel" [(ngModel)]="newCustomer.email" name="customerEmail" required placeholder="exemple@gmail.com" />
+
      </div>
     <button type="submit" [disabled]="!customerForm.valid">Submit</button>
 

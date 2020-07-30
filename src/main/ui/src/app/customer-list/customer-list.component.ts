@@ -10,6 +10,8 @@ export class CustomerListComponent implements OnInit {
 
 private customers: Customer[];
 
+private newCustomer: Customer;
+
   constructor() { }
 
   ngOnInit() {
@@ -30,15 +32,20 @@ private customers: Customer[];
   email: "Leipzig@gmail.com"
 }
 ];
-  }
+
+this.newCustomer = new Customer();
+this.newCustomer.name = "Trafalgar"
+this.newCustomer.data = "21/10/1805"
+this.newCustomer.email = "Trafalgar@gmail.com"
+}
   
-  onSubmit(customerForm: NgForm, customerName: String, customerData: String, customerEmail: String) {
+  onSubmit(customerForm: NgForm) {
     if (customerForm.valid) {
-      let newCustomer = new Customer();
-      newCustomer.name = customerName;
-      newCustomer.data = customerData;
-      newCustomer.email = customerEmail;
-      this.customers.push(newCustomer)
+      
+      //this.newCustomer.name = this.name;
+      //this.newCustomer.data = this.data;
+      //this.newCustomer.email = this.email;
+      this.customers.push(this.newCustomer)
     }
   }
 }
