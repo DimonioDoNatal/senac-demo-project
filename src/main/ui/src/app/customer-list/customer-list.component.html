@@ -34,37 +34,42 @@
     <h5>{{customer.data}}</h5>
 </div -->
 
-<div *ngFor="let customer of customers">
-    <h3>
-        <a [title]="customer.nome + ' details'">
-            {{ customer.nome }} 
-        </a>
-    </h3>
-    <p *ngIf="customer.email">
-        E-mail: {{ customer.email }}
-    </p>
-</div>
-<form #customerForm="ngForm" ngSubmit="onSubmit(customerForm)" class="formulario" >
+<form #customerForm="ngForm" (ngSubmit)="onSubmit(customerForm, customerName.value, customerData.value, customerEmail.value)" class="formulario" >
 
      <h2> Customers Guest Card </h2>
 
-     <div class="field">
-         <label for="name">Name:</label>
+     <div>
+         <label for="customerName">Name:</label>
         <input #customerName="ngModel" ngModel name="customerName" required placeholder="Customer Name" />
-        <p>{{customerName.value}}</p>
+
      </div>
      
      <div class="field">
-        <label for="name">Birthday:</label>
+        <label for="customerData">Birthday:</label>
         <input #customerData="ngModel" ngModel name="customerData" required placeholder="Customer Birthday"/>
-        <p> {{ customerData.value }}</p>
+
      </div>
 
      <div class="field">
-         <label for="name">Email:</label>
+         <label for="customerEmail">Email:</label>
         <input #customerEmail="ngModel" ngModel name="customerEmail" required placeholder="exemple@gmail.com" />
-        <p>{{ customerEmail.value }}</p>
+        
      </div>
-    <button type="submit" [disabled]="!customerForm.valid">Send</button>
+    <button type="submit" [disabled]="!customerForm.valid">Submit</button>
+
 </form>
+
+<div *ngFor="let customer of customers">
+    <h3>
+        <a [title]="customer.name + 'details'">
+            {{ customer.name }}
+        </a>
+    </h3>
+    <p *ngIf="customer.data + 'details'">
+        Birthday: {{ customer.data }}
+    </p>
+    <p *ngIf="customer.email + 'details'">
+        Email: {{ customer.email }}
+    </p>
+</div>
 
